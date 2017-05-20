@@ -1,7 +1,12 @@
 public boolean containsNearbyDuplicate(int[] nums, int k) {
         
         /*
-         Explanation: It iterates over the array using a sliding window. The front of the window is at i, the rear of the window is k steps back. The elements within that window are maintained using a set. While adding new element to the set, if add() returns false, it means the element already exists in the set. At that point, we return true. If the control reaches out of for loop, it means that inner return true never executed, meaning no such duplicate element was found.
+         Explanation: It iterates over the array using a sliding window. 
+         The front of the window is at i, the rear of the window is k steps back. 
+         The elements within that window are maintained using a set. 
+         While adding new element to the set, if add() returns false, 
+         it means the element already exists in the set. At that point, we return true.
+         If the control reaches out of for loop, it means that inner return true never executed, meaning no such duplicate element was found.
         */
         if(nums==null || nums.length == 0)
             return false;

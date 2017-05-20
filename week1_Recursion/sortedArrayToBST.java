@@ -5,6 +5,7 @@
  *     TreeNode left;
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
+ *      use (start+end)/2 as mid to make progress
  * }
  */
 public class Solution {
