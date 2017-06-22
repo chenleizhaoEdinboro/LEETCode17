@@ -9,7 +9,7 @@
  */
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        //满足答案的return cases
+        //满足答案的return cases,当就只有一个node的时候，这个node不是null, p or q
         if(root == null || root == p || root == q){
             return root;
         }
@@ -27,5 +27,22 @@ public class Solution {
             return right;
             
         return null;
+    }
+}
+
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //if the tree is empty
+        if (root == null) {
+            return null;
+        }
+        //if both nodes are larger than the root, search the right branch
+        if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else if (p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        } else { //if the two nodes are on different side of the root node, it means the root node is the answer
+            return root;
+        }
     }
 }
