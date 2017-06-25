@@ -1,27 +1,33 @@
+//check the cycle in the directed graph by topological sorting
 public class Solution {
 public boolean canFinish(int numCourses, int[][] prerequisites) {
+     int[][] matrix = new int[numCourses][numCourses]; // i -> j
     int[] indegree = new int[numCourses];
-    Queue<Integer> queue = new LinkedList<Integer>();
-    for(int[] pair:prerequisites){
-        indegree[pair[1]]++;
+    
+    for (int i=0; i<prerequisites.length; i++) {
+        int ready = prerequisites[i][0];
+        int pre = prerequisites[i][1];
+        if (matrix[pre][ready] == 0)
+            indegree[ready]++; //duplicate case
+        matrix[pre][ready] = 1;
     }
-    for(int i=0;i<indegree.length;i++){
-        if(indegree[i]==0){
-            queue.add(i);
-        }
+    //topology sort , find the indegree ==0
+    int count = 0;
+    Queue<Integer> queue = new LinkedList();
+    for (int i=0; i<indegree.length; i++) {
+        if (indegree[i] == 0) queue.offer(i);
     }
-    int select = 0;
-    while(!queue.isEmpty()){
-        numCourses--;
+    while (!queue.isEmpty()) {
         int course = queue.poll();
-        for(int[] pair:prerequisites){
-            if(pair[0]==course){
-                indegree[pair[1]]--;
-                if(indegree[pair[1]]==0){
-                    queue.add(pair[1]);
-                }
+        count++;
+        //For 每一次课如果有关系就减去
+        for (int i=0; i<numCourses; i++) {
+            if (matrix[course][i] != 0) {
+                if (--indegree[i] == 0)
+                    queue.offer(i);
             }
         }
     }
-    return numCourses==0;
+    return count == numCourses;
+   }
 }
